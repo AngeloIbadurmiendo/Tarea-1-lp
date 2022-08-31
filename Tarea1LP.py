@@ -105,6 +105,7 @@ posy=0
 pointing=1
 posactual= matrix[posx][posy]
 
+print("hola")
 
 
 
