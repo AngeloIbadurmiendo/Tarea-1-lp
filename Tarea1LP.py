@@ -8,7 +8,7 @@ matrix_completa="Ancho (?P<area>[0-9]+)\n(Color de fondo (?P<color>Rojo|Verde|Az
 Instrucciones
 repetir="(?P<repetir>Repetir [0-9] veces (?P<contllave>\{[\s+](.|\n)*\}))"
 ordenes="Izquierda|Derecha|Avanzar [0-9\n]|Pintar (Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\))*"
-instrucciones="(Izquierda|Derecha|Avanzar([ 0-9\n]?)*|Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\))|(?P<repetir>Repetir [0-9] veces (?P<contllave>\{[\s+](.|\n)*\})))"
+instrucciones="(Izquierda|Derecha|Avanzar ?(?P<avance>[0-9\n]?)*|(?P<pintar>Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))|(?P<repetir>Repetir [0-9] veces (?P<contllave>\{[\s+](.|\n)*\})))"
 
 
 def convertirargb(colname):
