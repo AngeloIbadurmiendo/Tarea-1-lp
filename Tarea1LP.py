@@ -1,8 +1,14 @@
 import numpy as np
 
 '''regex
+matriz
 matsize="[A|a]ncho (?P<area>[0-9]+)"
-color="([C|c]olor de fondo (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
+backcolor="([C|c]olor de fondo (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
+matrix_completa="Ancho (?P<area>[0-9]+)\n(Color de fondo (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
+Instrucciones
+repetir="(?P<repetir>Repetir [0-9] veces (?P<contllave>\{[\s+](.|\n)*\}))"
+ordenes="Izquierda|Derecha|Avanzar [0-9\n]|Pintar (Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\))*"
+instrucciones="(Izquierda|Derecha|Avanzar([ 0-9\n]?)*|Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\))|(?P<repetir>Repetir [0-9] veces (?P<contllave>\{[\s+](.|\n)*\})))"
 
 
 def convertirargb(colname):
