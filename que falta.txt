@@ -1,0 +1,22 @@
+LLevo:
+
+-todas las regex
+-crear matriz con su color de fondo
+-convertir nombres a codigo RGB
+-funcion para girar y saber en que direccion se apunta
+-
+
+Falta:
+
+-Leer txt
+-encontrar la forma de hacer funcionar los comandos
+-encontrar la forma de ''avanzar'' y que se guarde la ultima posicion
+-hacer el makefile xdxd
+-encontrar la forma de crear los txt con errores y encontrar los errores
+-
+
+
+
+Ideas:
+
+-

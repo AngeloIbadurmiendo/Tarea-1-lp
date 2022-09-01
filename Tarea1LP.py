@@ -94,10 +94,7 @@ size=3
 color='(255,30,20)'
 #matrix=crearmatriz(size,color)
 matrix=[['00', '01', '02'], ['10', '11', '12'], ['20', '21', '22']]
-'''
-[['00', '01', '02'],
- ['10', '11', '12'], 
- ['20', '21', '22']]'''
+
 #arriba=0 disminuye x
 #derecha=1 aumenta y
 #abajo=2 aumenta x
