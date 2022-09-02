@@ -1,5 +1,5 @@
 import numpy as np
-
+import re
 '''regex
 matriz
 matsize="[A|a]ncho (?P<area>[0-9]+)"
@@ -37,7 +37,7 @@ if colorentregado(no codigo) in listacolores:
 ejemplos
 Avanzar Derecha Avanzar
 Repetir 4 veces {
-Repetir 8 veces { Pintar Negro Avanzar } 
+Repetir 8 veces { Pintar Negro Avanzar }
 Derecha Derecha Avanzar Derecha }
 Pintar Rojo Avanzar 2 Derecha
 Pintar Verde Avanzar 2 Derecha
@@ -108,13 +108,25 @@ posy=0
 pointing=1
 posactual= matrix[posx][posy]
 
-print("hola")
 
-
-
-
-
-
+test=open("tests.txt","r")
+defmatrix=[]
+instrumatrix=[]
+for a in test:
+    defmatrix.append(a)
+    instrumatrix.append(a)
+defmatrix= defmatrix[0:2]
+instrumatrix=instrumatrix[3:]
+defmatrix=[w.replace("\n"," ") for w in defmatrix]
+instrumatrix=[w.replace("\n"," ") for w in instrumatrix]
+string=""
+string2=""
+for a in defmatrix:
+    string+=a
+for a in instrumatrix:
+    string2+=a
+print(string)
+print(string2)
 
     
 

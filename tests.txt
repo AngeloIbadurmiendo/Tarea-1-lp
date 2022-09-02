@@ -1,0 +1,12 @@
+Ancho 10
+Color de fondo Blanco
+
+Avanzar Derecha Avanzar
+Repetir 4 veces {
+Repetir 8 veces { Pintar Negro Avanzar } 
+Derecha Derecha Avanzar Derecha }
+Pintar Rojo Avanzar 2 Derecha
+Pintar Verde Avanzar 2 Derecha
+Pintar Azul Avanzar 2 Derecha
+Pintar Blanco Avanzar Derecha Avanzar
+Pintar RGB(0,255,255)
