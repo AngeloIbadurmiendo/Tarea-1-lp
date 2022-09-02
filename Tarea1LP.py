@@ -4,7 +4,7 @@ import re
 matriz
 matsize="[A|a]ncho (?P<area>[0-9]+)"
 backcolor="([C|c]olor de fondo (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
-matrix_completa="Ancho (?P<area>[0-9]+)\n(Color de fondo (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
+
 Instrucciones
 repetir="(?P<repetir>Repetir [0-9] veces (?P<contllave>\{[\s+](.|\n)*\}))"
 ordenes="Izquierda|Derecha|Avanzar [0-9\n]|Pintar (Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\))*"
@@ -70,12 +70,12 @@ def convertirargb(colname):
         return colname
     return codigo
 
-
 def crearmatriz(matsize,color):
     cod=convertirargb(color)
+    num=int(matsize)
     matriz=[]
-    for i in range(matsize):
-        matriz.append([cod]*matsize)
+    for i in range(num):
+        matriz.append([cod]*num)
     return matriz
 
 def girar(direccion,apuntando):
@@ -90,10 +90,11 @@ def girar(direccion,apuntando):
         pos-=1
     return pos
 
+matrix_completa=r"(Ancho (?P<area>[0-9]+)) (Color de fondo (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
 size=3
-color='(255,30,20)'
-#matrix=crearmatriz(size,color)
-matrix=[['00', '01', '02'], ['10', '11', '12'], ['20', '21', '22']]
+matcolor='(255,30,20)'
+
+
 
 #arriba=0 disminuye x
 #derecha=1 aumenta y
@@ -103,11 +104,6 @@ matrix=[['00', '01', '02'], ['10', '11', '12'], ['20', '21', '22']]
 # 0 y 2 movimiento en x
 # 1 y 3 movimiento en y
 #para avanzar usar la condicion de movimiento en x o y (if pointing == 0 o 2 sumar/restar la cantidad a 'X' 1 o 3 sumar/restar la cantidad a 'Y')
-posx=0
-posy=0
-pointing=1
-posactual= matrix[posx][posy]
-
 
 test=open("tests.txt","r")
 defmatrix=[]
@@ -119,15 +115,23 @@ defmatrix= defmatrix[0:2]
 instrumatrix=instrumatrix[3:]
 defmatrix=[w.replace("\n"," ") for w in defmatrix]
 instrumatrix=[w.replace("\n"," ") for w in instrumatrix]
-string=""
-string2=""
+formato=""
+instrucciones=""
 for a in defmatrix:
-    string+=a
+    formato+=a
 for a in instrumatrix:
-    string2+=a
-print(string)
-print(string2)
+    instrucciones+=a
 
+compileforma=re.match(matrix_completa,formato)
+size=compileforma.group('area')
+matcolor=compileforma.group('color')
+matcolor=convertirargb(matcolor)
+matrix=crearmatriz(size,matcolor)
+posx=0
+posy=0
+pointing=1
+posactual= matrix[posx][posy]
+print (matrix)
     
 
 
