@@ -67,7 +67,7 @@ def convertirargb(colname):
     elif input == 'blanco':
         codigo='(255,255,255)'
     else:
-        return colname
+        return colname[3:]
     return codigo
 
 def crearmatriz(matsize,color):
@@ -79,6 +79,7 @@ def crearmatriz(matsize,color):
     return matriz
 
 def girar(direccion,apuntando):
+    direccion=direccion.lower()
     pos=apuntando
     if direccion=='derecha':
         if pos>=3:
@@ -91,10 +92,7 @@ def girar(direccion,apuntando):
     return pos
 
 matrix_completa=r"(Ancho (?P<area>[0-9]+)) (Color de fondo (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
-size=3
-matcolor='(255,30,20)'
-
-
+patinstru=r"(Izquierda|Derecha|Avanzar ?(?P<avance>[0-9\n])*|(?P<pintar>Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))|(?P<repetir>Repetir [0-9] veces (?P<contllave>\{[\s+](.|\n)*\})))"
 
 #arriba=0 disminuye x
 #derecha=1 aumenta y
@@ -125,21 +123,27 @@ for a in instrumatrix:
 compileforma=re.match(matrix_completa,formato)
 size=compileforma.group('area')
 matcolor=compileforma.group('color')
-matcolor=convertirargb(matcolor)
 matrix=crearmatriz(size,matcolor)
 posx=0
 posy=0
 pointing=1
 posactual= matrix[posx][posy]
-print (matrix)
+
+reinstru=re.findall(patinstru,instrucciones)
+
+for a in reinstru:
+    if a[0] == "Izquierda" or a[0] == "Derecha":
+        pointing=girar(a[0],pointing)
+    elif 'Avanzar' in a[0] and "Repetir" not in a[0]:
+        num=a[0][-1]
+        if num==" ":
+            num=1
+        num=int(num)
+        if pointing==0:
+            
+
+            
     
 
 
     
-
-
-    
-
-
-
-
