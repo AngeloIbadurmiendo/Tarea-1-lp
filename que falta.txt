@@ -8,7 +8,6 @@ LLevo:
 
 Falta:
 
--Leer txt
 -encontrar la forma de hacer funcionar los comandos
 -encontrar la forma de ''avanzar'' y que se guarde la ultima posicion
 -hacer el makefile xdxd

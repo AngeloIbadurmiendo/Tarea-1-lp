@@ -1,4 +1,4 @@
-Ancho 10
+Ancho 3
 Color de fondo Blanco
 
 Avanzar Derecha Avanzar
