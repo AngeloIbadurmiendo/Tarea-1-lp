@@ -93,6 +93,7 @@ def girar(direccion,apuntando):
 
 matrix_completa=r"(Ancho (?P<area>[0-9]+)) (Color de fondo (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
 patinstru=r"(Izquierda|Derecha|Avanzar ?(?P<avance>[0-9\n])*|(?P<pintar>Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))|(?P<repetir>Repetir [0-9] veces (?P<contllave>\{[\s+](.|\n)*\})))"
+pintcolor=r"(?P<pintar>Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
 
 #arriba=0 disminuye x
 #derecha=1 aumenta y
@@ -140,10 +141,33 @@ for a in reinstru:
             num=1
         num=int(num)
         if pointing==0:
-            
+            posx-=num
+            if posx<0:
+                print("Fuera de los limites")
+                exit
+        elif pointing ==1:
+            posy+=num
+            if posy>(int(size)-1):
+                print("fuera de los limites")
+                exit
+        elif pointing == 2:
+            posx+=num
+            if posx>(int(size)-1):
+                print("fuera de los limites")
+                exit
+        elif pointing == 3:
+            posy-=num
+            if posy<0:
+                print("fuera de los limites")
+                exit
+    elif "Pintar" in a[0] and "Repetir" not in a[0]:
+        match=re.match(pintcolor,a[0])
+        color=convertirargb(match.group("color"))
+        matrix[posx][posy]=color
+print (matrix)
+        
 
-            
-    
 
 
-    
+
+

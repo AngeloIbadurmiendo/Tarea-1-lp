@@ -1,10 +1,6 @@
 Ancho 3
-Color de fondo Blanco
+Color de fondo RGB(0,0,0)
 
-Avanzar Derecha Avanzar
-Repetir 4 veces {
-Repetir 8 veces { Pintar Negro Avanzar } 
-Derecha Derecha Avanzar Derecha }
 Pintar Rojo Avanzar 2 Derecha
 Pintar Verde Avanzar 2 Derecha
 Pintar Azul Avanzar 2 Derecha
