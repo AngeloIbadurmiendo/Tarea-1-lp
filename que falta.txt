@@ -8,8 +8,6 @@ LLevo:
 
 Falta:
 
--encontrar la forma de hacer funcionar los comandos
--encontrar la forma de ''avanzar'' y que se guarde la ultima posicion
 -hacer el makefile xdxd
 -encontrar la forma de crear los txt con errores y encontrar los errores
 -
@@ -19,3 +17,4 @@ Falta:
 Ideas:
 
 -crear un comparador con la cantidad de expresiones regulares encontradas y la cantidad de datos en el texto inicial (comparar listas mediante un ciclo) y añadir las diferencias
+-Para el repetir aplicar recursion a traves de una funcion

@@ -92,7 +92,7 @@ def girar(direccion,apuntando):
     return pos
 
 matrix_completa=r"(Ancho (?P<area>[0-9]+)) (Color de fondo (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
-patinstru=r"(Izquierda|Derecha|Avanzar ?(?P<avance>[0-9\n])*|(?P<pintar>Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))|(?P<repetir>Repetir [0-9] veces (?P<contllave>\{[\s+](.|\n)*\})))"
+patinstru=r"(Izquierda|Derecha|Avanzar ?(?P<avance>[0-9\n])*|(?P<pintar>Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))|(?P<repetir>Repetir (?P<numero>[0-9]*) veces \{(?P<contllave>.*?)\}))"
 pintcolor=r"(?P<pintar>Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
 
 #arriba=0 disminuye x
@@ -164,7 +164,8 @@ for a in reinstru:
         match=re.match(pintcolor,a[0])
         color=convertirargb(match.group("color"))
         matrix[posx][posy]=color
-print (matrix)
+    elif "Repetir" in a[0]:
+        print(a[0])
         
 
 
