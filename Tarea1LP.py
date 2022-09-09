@@ -1,38 +1,11 @@
-import numpy as np
 import re
-'''regex
-matriz
-matsize="[A|a]ncho (?P<area>[0-9]+)"
-backcolor="([C|c]olor de fondo (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
-
-Instrucciones
-repetir="(?P<repetir>Repetir [0-9] veces (?P<contllave>\{[\s+](.|\n)*\}))"
-ordenes="Izquierda|Derecha|Avanzar [0-9\n]|Pintar (Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\))*"
-instrucciones="(Izquierda|Derecha|Avanzar ?(?P<avance>[0-9\n]?)*|(?P<pintar>Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))|(?P<repetir>Repetir [0-9] veces (?P<contllave>\{[\s+](.|\n)*\})))"
-
-
-def convertirargb(colname):
-    input=colname.lower()
-    codigo=''
-    if input == 'rojo':
-        codigo='(255,0,0)'
-    if input == 'verde':
-        codigo='(0,255,0)'
-    if input == 'azul':
-        codigo='(0,0,255)'
-    if input == 'negro':
-        codigo='(0,0,0)'
-    if input == 'blanco':
-        codigo='(255,255,255)'
-    return codigo
+import numpy as np 
+from PIL import Image 
+'''
 
 listacolores=['rojo','verde','azul','negro','blanco']
 if colorentregado(no codigo) in listacolores:
     convertirargb(colorentregado)
-
-
-
-
 
 ejemplos
 Avanzar Derecha Avanzar
@@ -45,8 +18,6 @@ Pintar Azul Avanzar 2 Derecha
 Pintar Blanco Avanzar Derecha Avanzar
 Pintar RGB(0,255,255)
 
-
-
 Repetir [1-9]+ veces \{[ |\n][Izquierda|Derecha|Avanzar ]
 
 Izquierda|Derecha|Avanzar [0-9\n]*|Repetir [0-9] veces|Pintar (Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\))|Repetir [0-9] veces
@@ -57,17 +28,18 @@ def convertirargb(colname):
     input=colname.lower()
     codigo=''
     if input == 'rojo':
-        codigo='(255,0,0)'
+        codigo=(255,0,0)
     elif input == 'verde':
-        codigo='(0,255,0)'
+        codigo=(0,255,0)
     elif input == 'azul':
-        codigo='(0,0,255)'
+        codigo=(0,0,255)
     elif input == 'negro':
-        codigo='(0,0,0)'
+        codigo=(0,0,0)
     elif input == 'blanco':
-        codigo='(255,255,255)'
+        codigo=(255,255,255)
     else:
-        return colname[3:]
+        rgb=colname[3:]
+        return eval(rgb)
     return codigo
 
 def crearmatriz(matsize,color):
@@ -91,8 +63,26 @@ def girar(direccion,apuntando):
         pos-=1
     return pos
 
+def MatrizAImagen(matriz, filename='pixelart.png', factor=10):
+    '''
+    Convierte una matriz de valores RGB en una imagen y la guarda como un archivo png.
+    Las imagenes son escaladas por un factor ya que con los ejemplos se producirian imagenes muy pequeñas.
+        Parametros:
+                matriz (lista de lista de tuplas de enteros): Matriz que representa la imagen en rgb.
+                filename (str): Nombre del archivo en que se guardara la imagen.
+                factor (int): Factor por el cual se escala el tamaño de las imagenes.
+    '''
+    matriz = np.array(matriz, dtype=np.uint8)
+    np.swapaxes(matriz, 0, -1)
+
+    N = np.shape(matriz)[0]
+
+    img = Image.fromarray(matriz, 'RGB')
+    img = img.resize((N*10, N*10), Image.Resampling.BOX)
+    img.save(filename)
+
 matrix_completa=r"(Ancho (?P<area>[0-9]+)) (Color de fondo (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
-patinstru=r"(Izquierda|Derecha|Avanzar ?(?P<avance>[0-9\n])*|(?P<pintar>Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))|(?P<repetir>Repetir (?P<numero>[0-9]*) veces \{(?P<contllave>.*?)\}))"
+patinstru=r"(Izquierda|Derecha|Avanzar ?(?P<avance>[0-9\n])*|(?P<pintar>Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))|(?P<repetir>Repetir (?P<numero>[0-9]*) veces \{[^}]*}))"
 pintcolor=r"(?P<pintar>Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{1,3}\,[0-9]{1,3},[0-9]{1,3}\)))"
 
 #arriba=0 disminuye x
@@ -129,8 +119,19 @@ posx=0
 posy=0
 pointing=1
 posactual= matrix[posx][posy]
-
 reinstru=re.findall(patinstru,instrucciones)
+errores=""
+cmp1=instrucciones
+cmp2=""
+res=""
+for a in reinstru:
+    cmp2+=a[0]
+if len(cmp1)>len(cmp2): 
+    res=cmp1.replace(cmp2,'')
+else: 
+    res=cmp2.replace(cmp1,'')
+print (res)
+
 
 for a in reinstru:
     if a[0] == "Izquierda" or a[0] == "Derecha":
@@ -165,9 +166,10 @@ for a in reinstru:
         color=convertirargb(match.group("color"))
         matrix[posx][posy]=color
     elif "Repetir" in a[0]:
-        print(a[0])
+        print("\n")
+    
+    
         
-
 
 
 
