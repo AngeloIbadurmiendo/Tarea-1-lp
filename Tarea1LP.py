@@ -1,6 +1,7 @@
 import re
 import numpy as np 
 from PIL import Image 
+import sys
 '''
 
 listacolores=['rojo','verde','azul','negro','blanco']
@@ -97,6 +98,7 @@ pintcolor=r"(?P<pintar>Pintar (?P<color>Rojo|Verde|Azul|Negro|Blanco|RGB\([0-9]{
 test=open("tests.txt","r")
 defmatrix=[]
 instrumatrix=[]
+
 for a in test:
     defmatrix.append(a)
     instrumatrix.append(a)
@@ -145,22 +147,22 @@ for a in reinstru:
             posx-=num
             if posx<0:
                 print("Fuera de los limites")
-                exit
+                sys.exit()
         elif pointing ==1:
             posy+=num
             if posy>(int(size)-1):
                 print("fuera de los limites")
-                exit
+                sys.exit()
         elif pointing == 2:
             posx+=num
             if posx>(int(size)-1):
                 print("fuera de los limites")
-                exit
+                sys.exit()
         elif pointing == 3:
             posy-=num
             if posy<0:
                 print("fuera de los limites")
-                exit
+                sys.exit()
     elif "Pintar" in a[0] and "Repetir" not in a[0]:
         match=re.match(pintcolor,a[0])
         color=convertirargb(match.group("color"))
