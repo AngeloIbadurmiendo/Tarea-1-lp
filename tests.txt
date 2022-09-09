@@ -1,7 +1,0 @@
-Ancho 3
-Color de fondo Negro
-
-Repetir 2 {
-Pintar RGB(255,0,0) Avanzar Derecha 1 Avanzar
-}
-Pintar RGB(255,0,0)
